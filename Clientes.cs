@@ -1,77 +1,89 @@
 namespace ListManager;
 
-public class Clientes
+public class Cliente
 {
-    public Clientes()
-    {
-        BancoDeDados = new BancoDeDados();
-    }
     public int Id { get; set; }
     public string Nome { get; set; }
     public string Documento { get; set; }
     public string Profissao { get; set; }
     public string EstadoCivil { get; set; }
-    public BancoDeDados BancoDeDados { get; set; }
+    public BancoDeDados BancoDeDados { get; set; } // Propriedade que mantém uma referência ao BancoDeDados
+
+    // Construtor da classe
+    public void CarregarDados()
+    {
+        BancoDeDados = new BancoDeDados();
+
+        BancoDeDados.Clientes = new List<Cliente> // INICIALIZAÇÃO DE OBJETOS DA CLASSE LIST<CLIENTES>
+        {
+            new Cliente { Id = 1, Nome = "Sofia Romero D'ávila Sobrinho", Documento = "525.623.578-84", Profissao = "Professora", EstadoCivil = "Viúva" },
+            new Cliente { Id = 7, Nome = "Tessália Beltrão Uchoa", Documento = "679.804.895-19", Profissao = "Servidora Pública", EstadoCivil = "Separada" },
+            new Cliente { Id = 3, Nome = "Artur Espinoza Sepúlveda", Documento = "183.584.224-07", Profissao = "Médico Veterinário", EstadoCivil = "Solteiro" },
+            new Cliente { Id = 4, Nome = "Arthur de Souza Delgado Neto", Documento = "391.699.507-33", Profissao = "Cameraman", EstadoCivil = "Casado" },
+            new Cliente { Id = 5, Nome = "Poliana Hosana Lira Sobrinho", Documento = "898.993.104-50", Profissao = "Comerciante", EstadoCivil = "Casada" },
+            new Cliente { Id = 6, Nome = "Sueli Balestero Neto", Documento = "340.922.834-90", Profissao = "Árbitro", EstadoCivil = "Separada" },
+            new Cliente { Id = 7, Nome = "Aparecida Ferraz Maldonado", Documento = "554.917.713-76", Profissao = "Boleira", EstadoCivil = "Divorciada" },
+            new Cliente { Id = 8, Nome = "Renan Valdez Sobrinho", Documento = "536.277.646-09", Profissao = "Motorista de Aplicativo", EstadoCivil = "Solteiro" },
+            new Cliente { Id = 9, Nome = "Jerônimo Rezende Soto", Documento = "536.055.714-17", Profissao = "Açougueiro", EstadoCivil = "Viúvo" },
+            new Cliente { Id = 7, Nome = "Pedro Carlos D'ávila Filho", Documento = "648.457.300-06", Profissao = "Cientista da Computação", EstadoCivil = "Casado" }
+        };
+    }
 
     public override string ToString()
     {
         return $"ID: {Id}, Nome: {Nome}, Documento: {Documento}, Profissão: {Profissao}, Estado Civil: {EstadoCivil}";
     }
 
-    public bool Adicionar(Clientes clientes)
+    public bool Adicionar(Cliente clientes)
     {
         if (clientes != null)
         {
             BancoDeDados.Clientes.Add(clientes);
+            Console.WriteLine("Cliente adicionado com sucesso!");
             return true; // Cliente adicionado com sucesso
         }
+        else
+        {
+            Console.WriteLine("Falha ao adicionar cliente.");
+            return false; // Falha ao adicionar cliente
+        }
 
-        return false; // Falha ao adicionar cliente
     }
 
-    public List<Clientes> Listar()
+    public List<Cliente> Listar(Cliente clientes)
     {
         return BancoDeDados.Clientes;
     }
 
-    public Clientes Consultar(int id)
+    public Cliente Consultar(int id)
     {
-        return BancoDeDados.Clientes.FirstOrDefault(cliente => cliente.Id == id);
+        return BancoDeDados.Clientes.Where(clientes => clientes.Id == id).FirstOrDefault();
     }
-    public bool Atualizar(Clientes clientes)
+
+    public bool Atualizar(Cliente clientes)
     {
-        if (clientes != null)
-        {
-            // Procura o cliente pelo ID
-            Clientes cliente = BancoDeDados.Clientes.FirstOrDefault(clientes => clientes.Id == clientes.Id);
+        // Procura o cliente pelo ID
+        Cliente cliente = BancoDeDados.Clientes.Where(clientes => clientes.Id == clientes.Id).FirstOrDefault();
 
-            if (clientes != null)
-            {
-                // Atualiza as propriedades do cliente
-                clientes.Nome = clientes.Nome;
-                clientes.Documento = clientes.Documento;
-                clientes.Profissao = clientes.Profissao;
-                clientes.EstadoCivil = clientes.EstadoCivil;
+        // Atualiza as propriedades do cliente
+        clientes.Nome = clientes.Nome;
+        clientes.Documento = clientes.Documento;
+        clientes.Profissao = clientes.Profissao;
+        clientes.EstadoCivil = clientes.EstadoCivil;
 
-                return true; // Cliente atualizado com sucesso
-            }
-        }
-
-        return false; // Falha ao atualizar o cliente
+        Console.WriteLine("Cliente atualizado com sucesso!");
+        return true;
     }
 
     public bool Remover(int id)
     {
         // Procura o cliente pelo ID
-        Clientes clientes = BancoDeDados.Clientes.FirstOrDefault(clientes => clientes.Id == id);
+        Cliente cliente = BancoDeDados.Clientes.FirstOrDefault(clientes => clientes.Id == id);
 
-        if (clientes != null)
-        {
-            BancoDeDados.Clientes.Remove(clientes);
-            return true; // Cliente removido com sucesso
-        }
+        BancoDeDados.Clientes.Remove(cliente);
 
-        return false; // Falha ao remover o cliente (ID não encontrado)
+        Console.WriteLine("Cliente removido com sucesso!");
+        return true;
     }
 
 }
