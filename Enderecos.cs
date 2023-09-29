@@ -9,7 +9,7 @@ public class Endereco
     public string Numero { get; set; }
     public string Bairro { get; set; }
     public string Cidade { get; set; }
-    public string Estado { get; set; } 
+    public string Estado { get; set; }
     public BancoDeDados BancoDeDados { get; set; } // Propriedade que mantém uma referência ao BancoDeDados
 
     // Construtor da classe
@@ -69,14 +69,14 @@ public class Endereco
     // Método Atualizar para atualizar um endereço existente
     public bool Atualizar(Endereco enderecos)
     {
-            // Procura o endereço pelo ID
-        Endereco endereco = BancoDeDados.Enderecos.Where(enderecos => enderecos.Id == enderecos.Id).FirstOrDefault();
-            // Atualiza as propriedades dos endereços existentes
-        enderecos.Logradouro = enderecos.Logradouro;
-        enderecos.Numero = enderecos.Numero;
-        enderecos.Bairro = enderecos.Bairro;
-        enderecos.Cidade = enderecos.Cidade;
-        enderecos.Estado = enderecos.Estado;
+        // Procura o endereço pelo ID
+        Endereco novoEndereco = BancoDeDados.Enderecos.Where(novoEndereco => novoEndereco.Id == enderecos.Id).FirstOrDefault();
+        // Atualiza as propriedades dos endereços existentes
+        enderecos.Logradouro = novoEndereco.Logradouro;
+        enderecos.Numero = novoEndereco.Numero;
+        enderecos.Bairro = novoEndereco.Bairro;
+        enderecos.Cidade = novoEndereco.Cidade;
+        enderecos.Estado = novoEndereco.Estado;
 
         Console.WriteLine("Endereço atualizado com sucesso!");
         return true; // Endereço atualizado com sucesso
@@ -90,7 +90,7 @@ public class Endereco
 
         BancoDeDados.Enderecos.Remove(endereco);
         Console.WriteLine("Endereço removido com sucesso!");
-            
+
         return true; // Endereço removido com sucesso
 
     }
