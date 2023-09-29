@@ -57,19 +57,19 @@ public class Cliente
 
     public Cliente Consultar(int id)
     {
-        return BancoDeDados.Clientes.Where(clientes => clientes.Id == id).FirstOrDefault();
+        return BancoDeDados.Clientes.FirstOrDefault(x => x.Id == id);
     }
 
     public bool Atualizar(Cliente clientes)
     {
         // Procura o cliente pelo ID
-        Cliente cliente = BancoDeDados.Clientes.Where(clientes => clientes.Id == clientes.Id).FirstOrDefault();
+        Cliente novoCliente = BancoDeDados.Clientes.FirstOrDefault(x => x.Id == clientes.Id);
 
         // Atualiza as propriedades do cliente
-        clientes.Nome = clientes.Nome;
-        clientes.Documento = clientes.Documento;
-        clientes.Profissao = clientes.Profissao;
-        clientes.EstadoCivil = clientes.EstadoCivil;
+        clientes.Nome = novoCliente.Nome;
+        clientes.Documento = novoCliente.Documento;
+        clientes.Profissao = novoCliente.Profissao;
+        clientes.EstadoCivil = novoCliente.EstadoCivil;
 
         Console.WriteLine("Cliente atualizado com sucesso!");
         return true;
@@ -78,9 +78,9 @@ public class Cliente
     public bool Remover(int id)
     {
         // Procura o cliente pelo ID
-        Cliente cliente = BancoDeDados.Clientes.FirstOrDefault(clientes => clientes.Id == id);
+        Cliente removerCliente = BancoDeDados.Clientes.FirstOrDefault(x => x.Id == id);
 
-        BancoDeDados.Clientes.Remove(cliente);
+        BancoDeDados.Clientes.Remove(removerCliente);
 
         Console.WriteLine("Cliente removido com sucesso!");
         return true;

@@ -63,14 +63,15 @@ public class Endereco
     // Método Consultar para buscar um endereço por ID
     public Endereco Consultar(int id)
     {
-        return BancoDeDados.Enderecos.Where(enderecos => enderecos.Id == id).FirstOrDefault();
+        return BancoDeDados.Enderecos.FirstOrDefault(x => x.Id == id);
     }
 
     // Método Atualizar para atualizar um endereço existente
     public bool Atualizar(Endereco enderecos)
     {
         // Procura o endereço pelo ID
-        Endereco novoEndereco = BancoDeDados.Enderecos.Where(novoEndereco => novoEndereco.Id == enderecos.Id).FirstOrDefault();
+        Endereco novoEndereco = BancoDeDados.Enderecos.FirstOrDefault(x => x.Id == enderecos.Id);
+        
         // Atualiza as propriedades dos endereços existentes
         enderecos.Logradouro = novoEndereco.Logradouro;
         enderecos.Numero = novoEndereco.Numero;
@@ -81,14 +82,14 @@ public class Endereco
         Console.WriteLine("Endereço atualizado com sucesso!");
         return true; // Endereço atualizado com sucesso
     }
-
+    
     // Método Remover para remover um endereço por ID
     public bool Remover(int id)
     {
         // Procura o endereço pelo ID
-        Endereco endereco = BancoDeDados.Enderecos.FirstOrDefault(enderecos => enderecos.Id == id);
+        Endereco removerEndereco = BancoDeDados.Enderecos.FirstOrDefault(x => x.Id == id);
 
-        BancoDeDados.Enderecos.Remove(endereco);
+        BancoDeDados.Enderecos.Remove(removerEndereco);
         Console.WriteLine("Endereço removido com sucesso!");
 
         return true; // Endereço removido com sucesso
