@@ -29,7 +29,7 @@ public class Cliente
         };
     }
 
-    public override string ToString()
+    public override string ToString() // personalização do retorno
     {
         return $"ID: {Id}, Nome: {Nome}, Documento: {Documento}, Profissão: {Profissao}, Estado Civil: {EstadoCivil}";
     }
@@ -65,24 +65,24 @@ public class Cliente
         // Procura o cliente pelo ID
         Cliente novoCliente = BancoDeDados.Clientes.FirstOrDefault(x => x.Id == clientes.Id);
 
-        // Atualiza as propriedades do cliente
+        // Atualiza as informação do cliente com novas
         clientes.Nome = novoCliente.Nome;
         clientes.Documento = novoCliente.Documento;
         clientes.Profissao = novoCliente.Profissao;
         clientes.EstadoCivil = novoCliente.EstadoCivil;
 
-        Console.WriteLine("Cliente atualizado com sucesso!");
+        Console.WriteLine("Cliente atualizado com sucesso!"); // mensagem de sucesso da operação
         return true;
     }
 
     public bool Remover(int id)
     {
-        // Procura o cliente pelo ID
+        // Procura o cliente pelo ID pelo First
         Cliente removerCliente = BancoDeDados.Clientes.FirstOrDefault(x => x.Id == id);
 
-        BancoDeDados.Clientes.Remove(removerCliente);
+        BancoDeDados.Clientes.Remove(removerCliente); // remover
 
-        Console.WriteLine("Cliente removido com sucesso!");
+        Console.WriteLine("Cliente removido com sucesso!"); // mensagem de sucesso da operação
         return true;
     }
 
